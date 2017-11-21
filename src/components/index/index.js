@@ -1,0 +1,1 @@
+//这里是默认index.html需要插入的script,所有的html需要插入的script都必须与html同名

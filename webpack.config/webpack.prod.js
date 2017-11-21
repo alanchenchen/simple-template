@@ -5,6 +5,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin')//压缩混淆
 const common = require('./webpack.base.js')
 const extractCSS = new ExtractTextPlugin('style/[name]-css.css')
 const extractLESS = new ExtractTextPlugin('style/[name]-less.css')
+const extractSTYLUS = new ExtractTextPlugin('style/[name]-stylus.css')
 
 module.exports = merge(common, {
 	devtool: 'source-map',
@@ -17,6 +18,10 @@ module.exports = merge(common, {
 			{
 				test: /\.less$/i,
 				use: extractLESS.extract(['css-loader', 'less-loader'])
+			},
+			{
+				test: /\.styl$/i,
+				use: extractSTYLUS.extract(['css-loader', 'stylus-loader'])
 			}
 		]
 	},
@@ -29,7 +34,8 @@ module.exports = merge(common, {
 			sourceMap: true
 		}),
 		extractCSS,//将css打包成一个独立的css文件
-		extractLESS,//将less打包成一个独立的css文件
+		extractLESS,
+		extractSTYLUS,
 		new webpack.DefinePlugin({//添加node进程环境为production环境，方便第三方库打包。减少不必要的代码
 			'process.env': {
 				'NODE_ENV': JSON.stringify('production')

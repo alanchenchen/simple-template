@@ -4,8 +4,8 @@ const common = require('./webpack.base.js')
 
 module.exports = merge(common, {
 	devtool: 'eval-source-map',
-	module:{
-		rules:[
+	module: {
+		rules: [
 			{
 				test: /\.css$/,//打包css
 				use: [
@@ -27,15 +27,25 @@ module.exports = merge(common, {
 						noIeCompat: true
 					}
 				}]
+			},
+			{
+				test: /\.styl$/,//打包stylus
+				use: [
+					'style-loader',
+					'css-loader',
+					'stylus-loader'
+				]
 			}
 		]
 	},
 	devServer: {
-		contentBase: path.join(__dirname, ''),//当前是以项目根目录作为本地服务器根目录
+		contentBase: process.cwd(),//当前是以项目根目录作为本地服务器根目录
+		port: 3000,
 		hot: true,
 		inline: true,
+		openPage: 'dist/index.html',
 		historyApiFallback: true,
-		noInfo:true,//不显示打包的信息
+		noInfo: true,//不显示打包的信息
 		overlay: {//全屏显示错误和警告
 			warnings: true,
 			errors: true
