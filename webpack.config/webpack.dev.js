@@ -1,43 +1,7 @@
 const merge = require('webpack-merge')
-const path = require('path')
 const common = require('./webpack.base.js')
 
 module.exports = merge(common, {
-	devtool: 'eval-source-map',
-	module: {
-		rules: [
-			{
-				test: /\.css$/,//打包css
-				use: [
-					'style-loader',
-					'css-loader',
-					'postcss-loader'
-				]
-			},
-			{
-				test: /\.less$/,//打包less
-				use: [{
-					loader: 'style-loader'
-				}, {
-					loader: 'css-loader'
-				}, {
-					loader: 'less-loader',
-					options: {
-						strictMath: true,
-						noIeCompat: true
-					}
-				}]
-			},
-			{
-				test: /\.styl$/,//打包stylus
-				use: [
-					'style-loader',
-					'css-loader',
-					'stylus-loader'
-				]
-			}
-		]
-	},
 	devServer: {
 		contentBase: process.cwd(),//当前是以项目根目录作为本地服务器根目录
 		port: 3000,
