@@ -2,14 +2,13 @@
   "name": "simple-template",
   "version": "1.0.0",
   "description": "A simple webpack-config for multiple entries",
-  "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --colors --open --config ./webpack.config/webpack.dev.js",
     "build": "cross-env NODE_ENV=production webpack --progress --config ./webpack.config/webpack.prod.js",
     "start": "npm run dev"
   },
   "author": "Alan",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {},
   "devDependencies": {
     "babel-core": "^6.26.0",
