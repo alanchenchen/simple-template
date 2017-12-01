@@ -1,5 +1,7 @@
 # simple-template
 different templates for webpack-config.
+> Author：Alan Chen
+> E-mail: 739709491@qq.com
 ## 这一个模板集成了本地开发服务器和上线压缩混淆功能，只是一个非常简单的用来处理非MMVM框架的多页面webpack模板
 * 目前只提供了css，less和postcss,stylus等loader来解析样式，本地开发不会提取单独样式，而打包上线会提取单独的css文件并且生成source-map供调试
 * js只提供了基本的babel-loader来转码es6/7/8等语法，打包上线会混淆压缩js，也会生成source-map供调试，而开发环境提供了eval-source-map供调试，提高了调试的易用性
