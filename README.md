@@ -18,9 +18,10 @@ different templates for webpack-config.
 * 开发时不要在html里写link和sript标签，插件会自动插入css和js。生产模式会自动生成html并且嵌入link和script标签，打包之后的所有资源都会放在dist文件夹。
 * 根目录的index.html只是用来在开发环境提供预览，在生成环境打包之后，dist里的index.html才是需要放到线上的
 ## 使用：
+> 强烈建议通过我仓库内的[alan-cli](https://github.com/alanchenchen/alan-cli)来使用，非常便捷！
 * 1.git clone https://github.com/alanchenchen/simple-template.git
 * 2.npm install 
 * 3.npm run dev 或者npm start  --启动开发环境，会自动打开浏览器，更改js或css代码，浏览器会热替换，请注意html模板内的内容改变浏览器不会刷新
-* 4.npm run build --启动生成环境，打包src内的资源，生成以根目录html文件为模板的资源，所有资源都放在dist目录内(打包之后的文件路径全改为相对路径,可以直接打开！！)
+* 4.npm run build --启动生产环境，打包src内的资源，生成以根目录html文件为模板的资源，所有资源都放在dist目录内(打包之后的文件路径全改为相对路径,可以直接打开！！)
 * 5.可以在webpack.config文件夹下的config.js里修改本地服务器端口号，默认为8080
 * 6.强烈建议第三方库引入cdn而不是通过npm包引入，否则会让打包后文件非常大。本模板也提供externals，只需先在相关页面里引入script，然后在config.js配置，就可以在js里把cdn插件当作模块引入。
