@@ -6,6 +6,7 @@ const HTMLwebpack = require('./queryFile').HTMLwebpack//自动获取所有的htm
 const ENTRY = require('./queryFile').ENTRY//自动获取所有的js并创建入口
 const ROOTPATH = process.cwd()
 const env = process.env.NODE_ENV //获取进程的模式是开发环境还是生产环境
+const vendors = require('./config').vendors
 const ExtractTextPlugin = require('extract-text-webpack-plugin')//提取独立文件
 const extractCSS = new ExtractTextPlugin('static/style/[name]-css.css')
 const extractLESS = new ExtractTextPlugin('static/style/[name]-less.css')
@@ -101,7 +102,6 @@ module.exports = {
 	},
 	plugins: env == 'production' ? [
 		new CleanWebpackPlugin('dist', { root: ROOTPATH }),//每次启动都会清除dist目录...
-		new FriendlyErrorsWebpackPlugin(),
 		extractCSS,
 		extractLESS,
 		extractSTYLUS,
@@ -116,5 +116,6 @@ module.exports = {
 		alias: {
 			'@': path.resolve(ROOTPATH, 'src')
 		}
-	}
+	},
+	externals:vendors
 }
