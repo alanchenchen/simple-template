@@ -1,5 +1,5 @@
 # simple-template
-different templates for webpack-config.
+A simple  template with webpack for building mutiple entries project
 > Author：Alan Chen
 > E-mail: 739709491@qq.com
 ## 这一个模板集成了本地开发服务器和上线压缩混淆功能，只是一个非常简单的用来处理非MMVM框架的多页面webpack模板
