@@ -18,7 +18,7 @@ module.exports = {
 	output: {
 		filename: 'static/js/[name].bundle.js',
 		path: path.join(ROOTPATH, 'dist'),//打包输出的目录
-		publicPath: env == 'production' ? '../dist/' : '/dist/'
+		publicPath: env == 'production' ? './' : '/dist/' //打包输出的html引用打包后dist文件夹的路径
 	},
 	module: {
 		rules: [
@@ -34,7 +34,7 @@ module.exports = {
 						options: {
 							limit: 8192,
 							name: '[name]-[hash:6].[ext]',
-							outputPath: 'static/img/',
+							outputPath: 'static/img/', //图片和字体文件打包后存放的路径
 						}
 					}
 				]
@@ -54,7 +54,7 @@ module.exports = {
 				test: /\.css$/,//打包css
 				use: env == 'production' ?
 					extractCSS.extract({
-						publicPath: '../../',
+						publicPath: '../../', //打包后css文件中引入图片和字体的相对路径，此时为dist根目录
 						use: [
 							{
 								loader: 'css-loader',
@@ -70,7 +70,7 @@ module.exports = {
 				test: /\.less$/,//打包less
 				use: env == 'production' ?
 					extractLESS.extract({
-						publicPath: '../../',
+						publicPath: '../../', //打包后css文件中引入图片和字体的相对路径，此时为dist根目录
 						use: [
 							{
 								loader: 'css-loader',
@@ -86,7 +86,7 @@ module.exports = {
 				test: /\.styl$/,//打包stylus
 				use: env == 'production' ?
 					extractSTYLUS.extract({
-						publicPath: '../../',
+						publicPath: '../../', //打包后css文件中引入图片和字体的相对路径，此时为dist根目录
 						use: [
 							{
 								loader: 'css-loader',
