@@ -1,8 +1,8 @@
 const merge = require('webpack-merge')
 const common = require('./webpack.base.js')
-const host  = require('./config').host || 'localhost'
-const port  = require('./config').port || 8080
-const autoOpen  = require('./config').autoOpen || true
+const host  = require('./config').host
+const port  = require('./config').port
+const autoOpen  = require('./config').autoOpen
 
 module.exports = merge(common, {
 	devServer: {
