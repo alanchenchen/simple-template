@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A simple webpack-config for multiple entries",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --colors --open --config ./webpack.config/webpack.dev.js",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --colors --config ./webpack.config/webpack.dev.js",
     "build": "cross-env NODE_ENV=production webpack --progress --config ./webpack.config/webpack.prod.js",
     "start": "npm run dev"
   },
