@@ -1,11 +1,15 @@
 const merge = require('webpack-merge')
 const common = require('./webpack.base.js')
-const port  = require('./config').port
+const host  = require('./config').host || 'localhost'
+const port  = require('./config').port || 8080
+const autoOpen  = require('./config').autoOpen || true
 
 module.exports = merge(common, {
 	devServer: {
 		contentBase: process.cwd(),//当前是以项目根目录作为本地服务器根目录
-		port: port,
+		host,
+		port,
+		open: autoOpen,
 		hot: true,
 		inline: true,
 		openPage: 'dist/index.html',
