@@ -14,6 +14,7 @@ module.exports = merge(common, {
 		inline: true,
 		openPage: 'dist/index.html',
 		historyApiFallback: true,
+		quiet: true, //ErrorFriendly模块要求,开发环境打包出错不会出现打包信息
 		noInfo: true,//不显示打包的信息
 		overlay: {//全屏显示错误和警告
 			warnings: true,
