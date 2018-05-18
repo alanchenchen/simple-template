@@ -2,7 +2,7 @@
 A simple  template with webpack for building mutiple entries project
 > Author：Alan Chen
 > E-mail: 739709491@qq.com
-### 这一个模板集成了本地开发服务器和上线压缩混淆功能，只是一个非常简单的用来处理非MMVM框架的多页面webpack模板
+### 这一个模板集成了本地开发服务器和上线压缩混淆功能，用来处理非MvvM框架的多页面webpack模板
 * 目前提供了css，less和postcss,stylus等loader来解析样式，本地开发不会提取单独样式，而打包上线会提取单独的css文件并且生成source-map供调试
 * js提供了基本的babel-loader来转码es6/7/8等语法，打包上线会混淆压缩js，也会生成source-map供调试，而开发环境提供了eval-source-map供调试，提高了调试的易用性
 * 也提供了打包图片和字体的loader，在引入iconfont的时候需要手动改iconfont.css的路径为相对路径并且删掉引号
@@ -23,6 +23,6 @@ A simple  template with webpack for building mutiple entries project
 * 2.npm install 
 * 3.npm run dev 或者npm start  --启动开发环境，默认不会自动打开浏览器，更改js或css代码，浏览器会热替换，请注意html模板内的内容改变浏览器不会刷新
 * 4.npm run build --启动生产环境，打包src内的资源，生成以根目录html文件为模板的资源，所有资源都放在dist目录内(打包之后的文件路径全改为相对路径,可以直接打开！！)
-* 5.可以在webpack.config文件夹下的config.js里修改本地服务器端口号，默认为8080
+* 5.可以在webpack.config文件夹下的config.js里修改配置，host默认为localhost，port默认为8080。
 * 6.强烈建议第三方库引入cdn而不是通过npm包引入，否则会让打包后文件非常大。本模板也提供externals，只需先在相关页面里引入script，然后在config.js配置，就可以在js里把cdn插件当作模块引入。<span style="color:red;font-weight:bold">修改config里的东西一定要重新打开本地服务器！</span>
 * 7.如果想使用css预编译工具，目前模板支持less和stylus等loader，但是，你必须要自己手动npm安装对应的预编译工具，例如`npm install --save-dev stylus`
