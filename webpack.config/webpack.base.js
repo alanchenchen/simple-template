@@ -1,6 +1,4 @@
 const path = require('path')
-const CleanWebpackPlugin = require('clean-webpack-plugin')//清除打包后的重复chunk
-const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')//报错友好提示插件
 const HtmlWebpackPlugin = require('html-webpack-plugin')//生成一个html，自动嵌入打包后的js和css
 const HTMLwebpack = require('./queryFile').HTMLwebpack//自动获取所有的html并创建html-webpacj-plugin
 const ENTRY = require('./queryFile').ENTRY//自动获取所有的js并创建入口
@@ -46,7 +44,7 @@ module.exports = {
 				use: {
 					loader: 'babel-loader',
 					options: {
-						presets: ['es2015', 'latest', 'env']
+						presets: ['env', 'stage-3']
 					}
 				}
 			},
@@ -100,16 +98,14 @@ module.exports = {
 			}
 		]
 	},
-	plugins: env == 'production' ? [
-		new CleanWebpackPlugin('dist', { root: ROOTPATH }),//每次启动都会清除dist目录...
-		extractCSS,
-		extractLESS,
-		extractSTYLUS,
-		...HTMLwebpack
-	]
+	plugins: env == 'production' 
+		? [
+			extractCSS,
+			extractLESS,
+			extractSTYLUS,
+			...HTMLwebpack
+		]
 		: [
-			new CleanWebpackPlugin('dist', { root: ROOTPATH }),//每次启动都会清除dist目录...
-			new FriendlyErrorsWebpackPlugin(),
 			...HTMLwebpack,
 		],
 	resolve: {
