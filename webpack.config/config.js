@@ -1,9 +1,14 @@
-//此处设置devServer的端口和需要模块引入的第三方库,注意：如果想模块引入，必须先引入cdn！否则会报错
 module.exports = {
-    host: 'localhost',
-    port:8080,
-    autoOpen: false,
-    //并且需要设置别名和插件内挂载在windows对象上的别名
+    dev: {
+        host: 'localhost', //开发模式本地服务器的ip
+        port:8080, //开发模式本地服务器的端口
+        autoOpen: false //开发模式本地服务器是否自动打开首页
+    },
+    prod: { //jsSourceMap权限更高。如果jsSourceMap为true，js和css都会生成sourceMap
+        cssSourceMap: true,
+        jsSourceMap: false
+    },
+    //需要模块引入的第三方库,必须先引入cdn！否则会报错
     vendors:{
         //键是你想设置的模块名，值是引入的插件本身暴露在windows下的对象名
 //         'jquery':'jQuery'
