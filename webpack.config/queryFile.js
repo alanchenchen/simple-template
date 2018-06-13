@@ -39,7 +39,8 @@ HTMLFILE.forEach(item => {
         filename: path.basename(item),
         template:  item,
         inject: true,
-        chunks:[path.parse(item).name]//只插入对应名称的js打包文件
+        chunks:['manifest', 'vendor', path.parse(item).name],//只插入对应名称的js打包文件、第三方库和runtime
+        chunksSortMode: 'dependency'
     })
     HTMLwebpack.push(plugin)
 })
