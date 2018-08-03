@@ -84,10 +84,21 @@ module.exports = merge(common, {
 			}
 		}),
 		new webpack.HashedModuleIdsPlugin(), //给每个chunk添加一个hashID
-		new webpack.optimize.CommonsChunkPlugin({ //提取所有被require的库到公共模块
+		// 注意CommonsChunkPlugin使用的顺序，很重要，先提取所有第三方模块和npm包，再从提取出来的chunks里提取npm包，最后从npm的chunks里提取runtime文件
+		new webpack.optimize.CommonsChunkPlugin({ //提取第三方公共模块，不是从node_modules引入
+			name: "common",
+			minChunks: function(module, count){
+				const trigger = (module.resource  && module.resource.includes("component") && count >= 2) || module.context && module.context.includes("node_modules")
+				if((module.resource  && module.resource.includes("component") && count >= 2)) {
+					console.log(module.resource)
+				}
+				return trigger
+			}
+		}),
+		new webpack.optimize.CommonsChunkPlugin({ //提取所有被require的npm包，从node_modules引入
 			name: "vendor",
 			minChunks: function(module){
-				return module.context && module.context.includes("node_modules");
+				return module.context && module.context.includes("node_modules")
 			}
 		}),
 		new webpack.optimize.CommonsChunkPlugin({ //提取webpack的runtime到公共模块

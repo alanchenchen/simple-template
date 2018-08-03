@@ -20,27 +20,28 @@ function getFile(PathName, ext, callback) {
         }
     })
 }
-const templatePATH = path.resolve(process.cwd(), 'template')//获取tempalte文件夹的绝对路径
-const JSPATH = path.resolve(process.cwd(), 'src/components')//获取src路径下components文件夹的绝对路径
-let HTMLFILE = []//tempalte目录下的所有html文件
-let JSFILE = []//components目录下的所有js文件
-getFile(templatePATH, 'html', fileName => HTMLFILE.push(fileName))
-getFile(JSPATH, 'js', fileName => JSFILE.push(fileName))
+
+const pagePATH = path.resolve(process.cwd(), 'src/page') //获取src路径下pages文件夹的绝对路径
+let HTMLFILE = [] //pages目录下的所有html文件
+let JSFILE = [] //pages目录下的所有js文件
+getFile(pagePATH, 'html', fileName => HTMLFILE.push(fileName))
+getFile(pagePATH, 'js', fileName => JSFILE.push(fileName))
 
 let HTMLwebpack = []
 let ENTRY = {}
 //循环生成webpack入口对象，然后导出
 JSFILE.forEach(item=>{
-    ENTRY[path.parse(item).name] = item
+    ENTRY[path.basename(item, '.js')] = item
 })
 //循环生成HtmlWebpackPlugin插件的数组，然后导出
 HTMLFILE.forEach(item => {
     let plugin = new HtmlWebpackPlugin({
         filename: path.basename(item),
-        template:  item,
+        template: item,
         inject: true,
-        chunks:['manifest', 'vendor', path.parse(item).name],//只插入对应名称的js打包文件、第三方库和runtime
-        chunksSortMode: 'dependency'
+        // alwaysWriteToDisk: true,
+        chunks:['manifest', 'vendor', path.basename(item, '.html'), 'common'], //只插入对应名称的js入口模块，公共模块，第三方库和runtime
+        chunksSortMode: 'dependency' //自动根据模块依赖来排序
     })
     HTMLwebpack.push(plugin)
 })

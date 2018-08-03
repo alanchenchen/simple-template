@@ -1,4 +1,5 @@
 const path = require('path')
+// const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
 const ROOTPATH = process.cwd() //获取进程的根绝对路径
 const env = process.env.NODE_ENV //获取进程的模式是开发环境还是生产环境
 const isProduction = env == 'production'
@@ -61,11 +62,14 @@ module.exports = {
 	},
 	plugins: [
 			...HTMLwebpack,
+			// new HtmlWebpackHarddiskPlugin()
 		],
 	resolve: {
 		alias: {
-			'@': path.resolve(ROOTPATH, 'src')
-		}
+			'@': path.resolve(ROOTPATH, 'src'),
+			'component': path.resolve(ROOTPATH, 'src/component')
+		},
+		extensions: ['.js', '.json', '.css', '.less', '.styl']
 	},
 	externals:CDNLibs
 }

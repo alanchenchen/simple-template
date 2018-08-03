@@ -49,6 +49,7 @@ const devConfig = (port) =>{
 			port,
 			open: autoOpenBrowser,
 			hot: true,
+			// watchContentBase: true,
 			compress: true, //压缩开启
 			historyApiFallback: {
 				rewrites: [ //将/路径重写跳转到index.html

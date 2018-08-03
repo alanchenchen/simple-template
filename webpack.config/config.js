@@ -13,7 +13,7 @@ module.exports = {
     
     CDNLibs:{ //需要模块引入的第三方cdn库,必须先引入cdn！否则会报错
         //键是你想设置的模块名，值是引入的插件本身暴露在windows下的对象名
-        'jq':'jQuery'
+        // 'jq':'jQuery'
     }
 }
   
