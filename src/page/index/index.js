@@ -1,6 +1,4 @@
-//index.html需要插入的script,所有html需要插入的script都必须与html同名
+// index.html需要插入的script,所有html需要插入的script都必须与html同名
+// 如果想实现热替换(不刷新整个页面，局部更新)，在下方加上 module.hot.accept()即可
 
-import author from 'component/a'
-import axios from 'axios'
-var b = 132123
-console.log(`采用${author.name}的模板编写，版本号是${author.version}`)
+// module.hot.accept()

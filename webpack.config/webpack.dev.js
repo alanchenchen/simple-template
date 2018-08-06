@@ -1,5 +1,5 @@
 const merge = require('webpack-merge')
-const path = require('path')
+// const path = require('path')
 const webpack = require('webpack')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')//报错友好提示插件
 const portFinder = require('portfinder') //用来获取可用port的node模块

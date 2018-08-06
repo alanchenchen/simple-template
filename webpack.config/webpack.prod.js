@@ -73,6 +73,7 @@ module.exports = merge(common, {
 		new CleanWebpackPlugin('dist', { root: ROOTPATH, verbose: false }), //每次打包都会清除dist目录
 		new UglifyJSPlugin({ //压缩混淆代码，并且生成sourceMap调试
 			uglifyOptions: {
+				compress: true,
 				ecma: 8,//支持ECMA 8语法
 				warnings: false//去掉警告
 			},
@@ -85,13 +86,10 @@ module.exports = merge(common, {
 		}),
 		new webpack.HashedModuleIdsPlugin(), //给每个chunk添加一个hashID
 		// 注意CommonsChunkPlugin使用的顺序，很重要，先提取所有第三方模块和npm包，再从提取出来的chunks里提取npm包，最后从npm的chunks里提取runtime文件
-		new webpack.optimize.CommonsChunkPlugin({ //提取第三方公共模块，不是从node_modules引入
+		new webpack.optimize.CommonsChunkPlugin({ // 提取第三方公共模块，不是从node_modules引入，仅当被超过两个页面js引入才抽出common的chunk
 			name: "common",
 			minChunks: function(module, count){
 				const trigger = (module.resource  && module.resource.includes("component") && count >= 2) || module.context && module.context.includes("node_modules")
-				if((module.resource  && module.resource.includes("component") && count >= 2)) {
-					console.log(module.resource)
-				}
 				return trigger
 			}
 		}),
