@@ -4,12 +4,17 @@ A template with webpack for building mutiple entries project
 
 > E-mail: 739709491@qq.com
 
-> version: 1.3.2
+> version: 1.4.0
 
 ## Update log
-1. 重新优化目录结构，更加符合中大型项目的组件化开发要求
-2. 智能抽离公共模块，除了拆分第三方库外，还会拆分开发者引入自己写的模块
-3. 新增支持`import()`语法，可以实现动态引入模块和懒加载功能，使用方法见[webpack文档](https://www.webpackjs.com/guides/code-splitting/#%E5%8A%A8%E6%80%81%E5%AF%BC%E5%85%A5-dynamic-imports-)  
+* *2018/12/11*
+    1. 添加static静态文件夹，static内的文件最终将会打包到dist的static目录内。开发时在js里引入只需要引入`static/`即可。如果通过模块引入，也提供了`static`的路径。
+    2. 优化postcss-loader的Autoprefixer功能，添加合适的browserList字段，如果需要自己定制，自行去[browserList](https://github.com/browserslist/browserslist#full-list)仓库或[这篇文章](https://ithelp.ithome.com.tw/articles/10192300)参考。
+
+* *2018/8/6*
+    1. 重新优化目录结构，更加符合中大型项目的组件化开发要求
+    2. 智能抽离公共模块，除了拆分第三方库外，还会拆分开发者引入自己写的模块
+    3. 新增支持`import()`语法，可以实现动态引入模块和懒加载功能，使用方法见[webpack文档](https://www.webpackjs.com/guides/code-splitting/#%E5%8A%A8%E6%80%81%E5%AF%BC%E5%85%A5-dynamic-imports-)  
 
 
 > 模板集成了本地开发服务器和上线压缩混淆功能，用来处理传统多页面开发
@@ -43,7 +48,7 @@ A template with webpack for building mutiple entries project
 * 根目录里<span style='color:red;'>src下的component文件夹不能删除！</span>因为模板会查询所有第三方模块，来抽离出所有可能的公用模块
 * 开发时不要在html里写link和sript标签，模板会自动插入css和js。生产模式会自动生成html并且嵌入link和script标签，打包之后的所有资源都会放在dist文件夹。
 * 当需要在js里输入其他页面的html路径时，直接输入绝对路径即可。例如：'test.html',无论是开发环境还是生产环境都会默认指向生成的test.html
-* 模板提供了两个符号来替代常用绝对路径，`@ => src目录`，`component => src/component目录`。
+* 模板提供了3个符号来替代常用绝对路径，`@ => src目录`，`component => src/component目录`，`static => static目录`。
 
 ## Unique 
 1. 智能打包拆分重复模块，只要在页面js里引入从`node_modules`导入的库，就会单独生成一个`vendor.js`。如果超过<span style='color:red;'>两个</span>页面的js引入了同一个js模块(非`node_modules`导入)，就会单独生成一个`common.js`(不会和vendor重复)。如果只有一个页面js引入了其他模块(非`node_modules`导入),则不会抽离出`common.js`。
@@ -53,7 +58,8 @@ A template with webpack for building mutiple entries project
 ## Tips and Problems
 1. 目前只能做到webpack热更新，而做不到热替换，必须要对应的loader来支持(vue和react都有对用的loader来解析)。如果想手动实现热替换，必须要在页面js里写 `module.hot.accept()`。
 2. webpack的热更新无法做到html更新，我舍弃了raw-loader的做法，很繁琐，不适用，所以目前如果你改动了html还是需要你手动刷新页面。
-3. 虽然实现了智能拆分重复模块和动态加载模块，但是并没有完全实现html智能嵌入js。例如：`index.js`引入了`axios`，也引入了开发者自己写的`format.js`模块，`sub.js`两个都没引入，`bar.js`没有引入`axios`,但是引入了`format.js`。理想情况是，
+3. 因为多入口多页面打包涉及到预先读取目录结构，而且webpack的watch做不到高度定制，所以目前如果你在本地服务器启用的时候，在page下新建了一个页面目录，那么你只能手动关掉服务器，再重新启动。这个问题我尝试自己用node的fs模块来解决，目前可以监听page下的html和js文件新增和删除，但是不够完善，以后新版本更新会让服务器自动重启。
+4. 虽然实现了智能拆分重复模块和动态加载模块，但是并没有完全实现html智能嵌入js。例如：`index.js`引入了`axios`，也引入了开发者自己写的`format.js`模块，`sub.js`两个都没引入，`bar.js`没有引入`axios`,但是引入了`format.js`。理想情况是，
 ``` bash
 // index.html
 <script src="vendor.js">
@@ -92,7 +98,7 @@ A template with webpack for building mutiple entries project
 <script src="manifest.js">
 
 ```
-目前这个情况不好解决，因为`html-webpack-plugin`的chunks选项是写死的，但是拆分模块的`CommonsChunkPlugin`却可以动态生成。我准备从`html-webpack-plugin`提供的hook函数入手，只能看后续能否解决了....
+目前这个情况不好解决，因为`html-webpack-plugin`的chunks选项是写死的，但是拆分模块的`CommonsChunkPlugin`却可以动态生成。准备从`html-webpack-plugin`提供的hook函数入手，由于该插件的新hooks函数只支持webpack4.0，所以该优化只能等到模板更新到4.0之后了...
 > 所有页面最少会嵌入两个js文件，一个是页面本身对应的同名js，一个是manifest.js(必存在)。所有页面最多会嵌入4个js，包含vendor.js(库)，common.js(开发者自行引入的模块)，页面同名js和manifest.js
 
 ## Usage

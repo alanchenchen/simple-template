@@ -46,6 +46,7 @@ module.exports = merge(common, {
 									sourceMap
 								}
 							},
+							'postcss-loader',
 							'less-loader']
 					})
 			},
@@ -61,6 +62,7 @@ module.exports = merge(common, {
 									sourceMap
 								}
 							},
+							'postcss-loader',
 							'stylus-loader']
 					})
 			}

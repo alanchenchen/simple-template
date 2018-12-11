@@ -1,4 +1,5 @@
 const path = require('path')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 // const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
 const ROOTPATH = process.cwd() //获取进程的根绝对路径
 const env = process.env.NODE_ENV //获取进程的模式是开发环境还是生产环境
@@ -62,12 +63,20 @@ module.exports = {
 	},
 	plugins: [
 			...HTMLwebpack,
+			new CopyWebpackPlugin([
+				{ 
+					from: path.resolve(ROOTPATH, 'static'),
+					to: path.resolve(ROOTPATH, 'dist/static'),
+					ignore: ['.*']
+				}
+			]),
 			// new HtmlWebpackHarddiskPlugin()
 		],
 	resolve: {
 		alias: {
 			'@': path.resolve(ROOTPATH, 'src'),
-			'component': path.resolve(ROOTPATH, 'src/component')
+			'component': path.resolve(ROOTPATH, 'src/component'),
+			'static': path.resolve(ROOTPATH, 'static') 
 		},
 		extensions: ['.js', '.json', '.css', '.less', '.styl']
 	},
