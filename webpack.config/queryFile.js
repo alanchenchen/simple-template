@@ -39,6 +39,11 @@ HTMLFILE.forEach(item => {
         filename: path.basename(item),
         template: item,
         inject: true,
+        minify: {
+            removeComments: true,
+            collapseWhitespace: true,
+            removeAttributeQuotes: true
+        },
         // alwaysWriteToDisk: true,
         chunks:['manifest', 'vendor', path.basename(item, '.html'), 'common'], //只插入对应名称的js入口模块，公共模块，第三方库和runtime
         chunksSortMode: 'dependency' //自动根据模块依赖来排序
