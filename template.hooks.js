@@ -1,5 +1,11 @@
 module.exports = {
     afterInit({print}) {
-        print.info('hooks 钩子函数测试成功...')
+        print.warn(
+            `
+            npm install or yarn 安装依赖
+            npm start启动开发环境
+            npm run build打包代码
+            `
+        )
     }
 }

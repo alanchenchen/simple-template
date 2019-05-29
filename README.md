@@ -2,11 +2,11 @@
 A template with webpack for building mutiple entries project
 > Author：Alan Chen
 
-> E-mail: 739709491@qq.com
-
-> version: 1.4.0
+> version: 1.5.0
 
 ## Update log
+* *2019/5/29*
+    1. 支持新版alan-cli，重构目录，模板支持hooks函数。
 * *2018/12/11*
     1. 添加static静态文件夹，static内的文件最终将会打包到dist的static目录内。开发时在js里引入只需要引入`static/`即可。如果通过模块引入，也提供了`static`的路径。
     2. 优化postcss-loader的Autoprefixer功能，添加合适的browserList字段，如果需要自己定制，自行去[browserList](https://github.com/browserslist/browserslist#full-list)仓库或[这篇文章](https://ithelp.ithome.com.tw/articles/10192300)参考。
@@ -102,14 +102,13 @@ A template with webpack for building mutiple entries project
 > 所有页面最少会嵌入两个js文件，一个是页面本身对应的同名js，一个是manifest.js(必存在)。所有页面最多会嵌入4个js，包含vendor.js(库)，common.js(开发者自行引入的模块)，页面同名js和manifest.js
 
 ## Usage
-> 强烈建议通过我仓库内的[alan-cli](https://github.com/alanchenchen/alan-cli)来使用，非常便捷！
-* 1.git clone https://github.com/alanchenchen/simple-template.git
-* 2.npm install 
-* 3.npm run dev 或者npm start  --启动开发环境，默认不会自动打开浏览器，更改js或css代码，浏览器会热替换，请注意html模板内的内容改变浏览器不会刷新
-* 4.npm run build --启动生产环境，打包page内的js文件，生成以html文件为模板的资源，所有资源都放在dist目录内(打包之后的文件路径全改为相对路径,可以直接打开！！)
-* 5.可以在webpack.config文件夹下的config.js里修改配置，提供了大量可修改配置。
-* 6.本模板提供externals和公共chunk拆分两种可选功能，但还是建议第三方库引入cdn而不是通过npm包引入，否则会让打包后文件非常大。设置externals只需先在相关页面里引入script，然后在config.js配置，就可以在js里把cdn插件当作模块引入。<span style="color:red;font-weight:bold">修改config里的东西一定要重新打开本地服务器！</span>
-* 7.如果想使用css预编译工具，目前模板支持less和stylus等loader，但是，你必须要自己手动npm安装对应的预编译工具，例如`npm install --save-dev stylus`
+1. 通过我仓库内的[alan-cli](https://github.com/alanchenchen/alan-cli)来使用，非常便捷！
+2. npm install 
+3. npm run dev 或者npm start  --启动开发环境，默认不会自动打开浏览器，更改js或css代码，浏览器会热替换，请注意html模板内的内容改变浏览器不会刷新
+4. npm run build --启动生产环境，打包page内的js文件，生成以html文件为模板的资源，所有资源都放在dist目录内(打包之后的文件路径全改为相对路径,可以直接打开！！)
+5. 可以在webpack.config文件夹下的config.js里修改配置，提供了大量可修改配置。
+6. 本模板提供externals和公共chunk拆分两种可选功能，但还是建议第三方库引入cdn而不是通过npm包引入，否则会让打包后文件非常大。设置externals只需先在相关页面里引入script，然后在config.js配置，就可以在js里把cdn插件当作模块引入。<span style="color:red;font-weight:bold">修改config里的东西一定要重新打开本地服务器！</span>
+7. 如果想使用css预编译工具，目前模板支持less和stylus等loader，但是，你必须要自己手动npm安装对应的预编译工具，例如`npm install --save-dev stylus`
 
 ## Something to say
 写这个webpack模板前后历时8个月左右，大改版了很多次，从一开始只支持webpack-dev-server和简单的打包，到现在支持智能拆分模块。其实很多人用这个模板不会去考虑到我做的很多优化，当然，这也是模板存在的意义。webpack是个很好的工具，但是如果不进行详细的配置，你大概只能使用最基本的功能。在我写这个模板的时候，webpack还没发布4.0版本，但是今天webpack4.0早已出来几个月，以后这个模板是否会升级到4.0可能看情况吧。webpack4.0支持了零配置开箱即用，但是似乎也带来很多问题，例如很多插件没有同步更新。后续我可能会在仓库里新建一个分支专门开发webpack4.0的模板。至于这个模板到底做了哪些事情，我还是想让使用者了解一下...
