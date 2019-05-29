@@ -8,7 +8,6 @@
     "start": "npm run dev"
   },
   "author": "Alan",
-  "license": "MIT",
   "dependencies": {
     "babel-runtime": "^6.26.0"
   },
